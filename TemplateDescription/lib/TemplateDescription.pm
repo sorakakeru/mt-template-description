@@ -35,8 +35,10 @@ sub edit_template {
     my $template = MT->model('template')->load($id);
 
     if ($template) {
-      $param->{td_description}
-        = $template->td_description || '';
+      $param->{td_description} =
+        defined $template->td_description
+          ? $template->td_description
+          : '';
     }
   }
   else {
@@ -73,7 +75,7 @@ sub template_source_template_table {
     )
   }{
     $1
-    <mt:if name="td_description">
+    <mt:if name="td_description" ne="">
       <div class="template-description small text-muted mt-1">
         <mt:var name="td_description" escape="html">
       </div>
